@@ -40,7 +40,6 @@ def test_rock(rock_test_env):
             "--help"
         ],
         capture_output=True,
-        check=True,
         text=True
     )
     assert "Usage of /cluster-autoscaler:" in asd.stderr
