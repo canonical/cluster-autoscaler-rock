@@ -24,7 +24,6 @@ def rock_test_env(tmpdir):
 
 def test_rock(rock_test_env):
     """Test rock."""
-    temp_dir, container_name = rock_test_env
     check_rock = CheckRock("rockcraft.yaml")
     rock_image = check_rock.get_name()
     rock_version = check_rock.get_version()
@@ -41,7 +40,7 @@ def test_rock(rock_test_env):
             "--help"
         ],
         capture_output=True,
-        # check=True,
+        check=True,
         text=True
     )
     assert "Usage of /cluster-autoscaler:" in asd.stderr
