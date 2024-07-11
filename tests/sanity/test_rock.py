@@ -8,9 +8,9 @@ def test_sanity():
     image = os.getenv(image_variable)
     assert image is not None, f"${image_variable} is not set"
     # assert we have the expected files
-    asd = subprocess.run(
+    docker_run = subprocess.run(
         ["docker", "run", "--rm", "--entrypoint", entrypoint, image, "--help"],
         capture_output=True,
-        text=True
+        text=True,
     )
-    assert "Usage of /cluster-autoscaler:" in asd.stderr
+    assert "Usage of /cluster-autoscaler:" in docker_run.stderr
