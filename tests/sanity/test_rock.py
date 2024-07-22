@@ -2,10 +2,8 @@
 # Copyright 2024 Canonical, Ltd.
 #
 
-import subprocess
-
-from k8s_test_harness.util import env_util
 import pytest
+from k8s_test_harness.util import docker_util, env_util
 
 
 @pytest.mark.parametrize("image_version", ("1.24.0", "1.27.2"))
@@ -17,9 +15,5 @@ def test_sanity(image_version):
 
     entrypoint = "/cluster-autoscaler"
     # assert we have the expected files
-    docker_run = subprocess.run(
-        ["docker", "run", "--rm", "--entrypoint", entrypoint, image, "--help"],
-        capture_output=True,
-        text=True,
-    )
-    assert "Usage of /cluster-autoscaler:" in docker_run.stderr
+    process = docker_util.run_in_docker(image, [entrypoint, "--help"])
+    assert "Usage of /cluster-autoscaler:" in process.stderr
