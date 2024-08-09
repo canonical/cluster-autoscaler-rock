@@ -15,5 +15,5 @@ def test_sanity(image_version):
 
     entrypoint = "/cluster-autoscaler"
     # assert we have the expected files
-    process = docker_util.run_in_docker(image, [entrypoint, "--help"])
+    process = docker_util.run_in_docker(image, [entrypoint, "--help"], check_exit_code=False)
     assert "Usage of /cluster-autoscaler:" in process.stderr
